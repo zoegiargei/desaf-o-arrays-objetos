@@ -1,4 +1,4 @@
-# desaf-o-arrays-objetos
+# desafio-arrays-objetos
 Desafío de arrays con objetos dentro - Tienda de compra -
 
 # Proyecto de prueba de aplicación de la tecnología JavaScript
