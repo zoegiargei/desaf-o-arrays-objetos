@@ -1,0 +1,12 @@
+{
+  "name": "proyecto-6-pruebas",
+  "version": "1.0.0",
+  "description": "proyecto prueba de tecnología JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "sass estilos.scss ./css/estilos.css -w --no-source-map -s compressed"
+  },
+  "author": "GIARGEI",
+  "license": "ISC"
+}
