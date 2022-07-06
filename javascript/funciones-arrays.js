@@ -24,17 +24,17 @@ function mostrarCatalogo(){
 
     alert(`
     - Refrigeración \n
-    ${heladera.nombre}   Precio: $${heladera.precio}\n
-    ${freezer.nombre}   Precio: $${freezer.precio}\n
+    ${heladeraStock.nombre}   Precio: $${heladeraStock.precio}\n
+    ${freezerStock.nombre}   Precio: $${freezerStock.precio}\n
     - Cocción \n
-    ${microondas.nombre}   Precio: $${microondas.precio}\n
-    ${horno.nombre}   Precio: $${horno.precio}\n
+    ${microondasStock.nombre}   Precio: $${microondasStock.precio}\n
+    ${hornoStock.nombre}   Precio: $${hornoStock.precio}\n
     - Batidoras \n
-    ${batidoraManual.nombre}   Precio: $${batidoraManual.precio}\n
-    ${batidoraMesa.nombre}   Precio: $${batidoraMesa.precio}\n
+    ${batidoraManualStock.nombre}   Precio: $${batidoraManualStock.precio}\n
+    ${batidoraMesaStock.nombre}   Precio: $${batidoraMesaStock.precio}\n
     -Lavado \n
-    ${lavavajillas.nombre}   Precio: $${lavavajillas.precio}\n
-    ${lavarropas.nombre}   Precio: $${lavarropas.precio}\n
+    ${lavavajillasStock.nombre}   Precio: $${lavavajillasStock.precio}\n
+    ${lavarropasStock.nombre}   Precio: $${lavarropasStock.precio}\n
     `)
 
     alert(`
@@ -58,60 +58,70 @@ function comprarProducto(numProducto){
 
         case 1:
 
+            const heladera = new ProductoComprado("heladera", heladeraStock.precio)
             heladera.ofertaPrecio(0.05)
-            heladera.disminuirStock(1)
+
+            heladeraStock.disminuirStock(1)
 
             carrito.push(heladera)
 
-            // Luego de agregar el objeto Producto heladera al carrito[] volvemos el valor de su atributo .precio a la normalidad
-
-            // CONSULTA!! 
-            // PROFE!! ¿es buena práctica hacerlo de éte modo o debería freezar en alguna parte del código el objeto?
-            heladera.precio = 300000
+            alert(`Este producto tiene 5% de descuento`)
 
         break
 
         case 2:
 
+            const freezer = new ProductoComprado("freezer", freezerStock.precio)
             freezer.ofertaPrecio(0.05)
-            freezer.disminuirStock(1)
+
+            freezerStock.disminuirStock(1)
 
             carrito.push(freezer)
-            freezer.precio = 100200
+
+            alert(`Este producto tiene 5% de descuento`)
 
         break
 
         case 3:
 
+            const microondas = new ProductoComprado("microondas", microondasStock.precio)
             microondas.ofertaPrecio(0.10)
-            microondas.disminuirStock(1)
+
+            microondasStock.disminuirStock(1)
             
             carrito.push(microondas)
-            microondas.precio = 40800
+
+            alert(`Este producto tiene 10% de descuento`)
 
         break
 
         case 4:
 
+            const horno = new ProductoComprado("horno", microondasStock.precio)
             horno.ofertaPrecio(0.10)
-            horno.disminuirStock(1)
+
+            hornoStock.disminuirStock(1)
 
             carrito.push(horno)
-            horno.precio = 95999
+
+            alert(`Este producto tiene 10% de descuento`)
 
         break
 
         case 5:
             
-            batidoraManual.disminuirStock(1)
+            const batidoraManual = new ProductoComprado("batidora manual", batidoraManualStock.precio)
+
+            batidoraManualStock.disminuirStock(1)
 
             carrito.push(batidoraManual)
 
         break
 
         case 6:
-                                            
-            batidoraMesa.disminuirStock(1)
+                                        
+            const batidoraMesa = new ProductoComprado("batidora de mesa", batidoraMesaStock.precio)
+            batidoraMesaStock.disminuirStock(1)
 
             carrito.push(batidoraMesa)
 
@@ -119,7 +129,9 @@ function comprarProducto(numProducto){
 
         case 7:
 
-            lavavajillas.disminuirStock(1)
+            const lavavajillas = new ProductoComprado("lavavajillas", lavavajillasStock.precio)
+
+            lavavajillasStock.disminuirStock(1)
 
             carrito.push(lavavajillas)
 
@@ -127,10 +139,11 @@ function comprarProducto(numProducto){
 
         case 8:
 
-            lavarropas.disminuirStock(1)
+            const lavarropas = new ProductoComprado("lavarropas", lavarropasStock.precio)
+            lavarropasStock.disminuirStock(1)
 
             carrito.push(lavarropas)
-            
+
         break
     }
 }
@@ -218,16 +231,18 @@ function menu(){
             console.log(` - Ticket - \n`)
 
             montoTotal=0
+
             // Cálculo del monto total
             for(let i=0; i < carrito.length ; i++){
 
                 montoTotal += carrito[i].precio
                 montoTotal.toFixed(2)
+            }
 
-                // llevando más de un producto se aplica10% de descuento
-                if (carrito.length >= 2){
-                    montoTotal = (montoTotal*0.1)
-                }
+            // llevando más de un producto se aplica10% de descuento
+            if (carrito.length >= 2){
+                montoTotal -= (montoTotal*0.1)
+                montoTotal.toFixed(2)
             }
 
             formaPago = parseInt(prompt(`
@@ -260,20 +275,22 @@ function menu(){
                 case 3:
 
                 formaDePago = "CRÉDITO"
+
                     alert(`El recargo por abonar con crédito es $ ${(montoTotal*0.1)}`)
                     montoTotal += (montoTotal*0.1)
                     montoTotal.toFixed(2)
-
-                    alert(montoTotal)
                 break
             }
 
-            alert(`El monto total a pagar, con descuentos incluidos es: $ ${montoTotal}\n`)
+            alert(`El monto total a pagar, con descuentos incluidos es: $ ${montoTotal}\n ¡Gracias por su compra!`)
 
             for (let i=0; i < carrito.length ; i++){
                 console.log(`${carrito[i].nombre} precio: $ ${carrito[i].precio}\n`)
             }
+
             console.log(`El precio final a abonar es: $ ${montoTotal}\n`)
+
+            op = 6
 
         } else if (op == 6){
             alert(` -los resultados se mostrarán por consola-\nHasta luego!`)

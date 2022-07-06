@@ -24,3 +24,9 @@ class Producto{
         this.stock -= cantidadMenos;
     }
 }
+
+class ProductoComprado extends Producto{
+    constructor(nombre,precio){
+        super(nombre,precio)
+    }
+}
