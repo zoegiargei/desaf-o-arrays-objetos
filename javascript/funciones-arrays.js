@@ -256,16 +256,16 @@ function menu(){
 
             `))
         
+            //Opciones de forma de pago
             switch(formaPago){
         
                 case 1:
 
                     formaDePago = "EFECTIVO"
-                    alert(`El descuento por abonar en efectivo es $ ${(montoTotal*0.1)}`)
+                    alert(`El descuento por abonar en efectivo es $ ${(montoTotal.toFixed(2)*0.1)}`)
                     montoTotal -= (montoTotal*0.1)
                     montoTotal.toFixed(2)
-
-                    alert(montoTotal)
+                    
                 break
 
                 case 2:
@@ -276,7 +276,7 @@ function menu(){
 
                 formaDePago = "CRÉDITO"
 
-                    alert(`El recargo por abonar con crédito es $ ${(montoTotal*0.1)}`)
+                    alert(`El recargo por abonar con crédito es $ ${(montoTotal.toFixed(2)*0.1)}`)
                     montoTotal += (montoTotal*0.1)
                     montoTotal.toFixed(2)
                 break
@@ -285,15 +285,24 @@ function menu(){
             alert(`El monto total a pagar, con descuentos incluidos es: $ ${montoTotal}\n ¡Gracias por su compra!`)
 
             for (let i=0; i < carrito.length ; i++){
-                console.log(`${carrito[i].nombre} precio: $ ${carrito[i].precio}\n`)
+                console.log(`${carrito[i].nombre} precio: $ ${carrito[i].precio}\n\n`)
+            }
+
+            if(formaDePago == "EFECTIVO"){
+                console.log(`Abona en efectivo. Tiene 10% de descuento\n\n`)
+            } else if(formaDePago == "DÉBITO"){
+                console.log(`Abona con DÉBITO. El precio final queda igual\n\n`)
+            } else{
+                console.log(`Abona con CRÉDITO. Tiene 10% de recargo\n\n`)
             }
 
             console.log(`El precio final a abonar es: $ ${montoTotal}\n`)
+            
 
-            op = 6
+            op = 6 //Cortamos el ciclo while
 
         } else if (op == 6){
-            alert(` -los resultados se mostrarán por consola-\nHasta luego!`)
+            alert(` -El ticket se mostrará por consola-\nHasta luego!`)
         }
 
     }

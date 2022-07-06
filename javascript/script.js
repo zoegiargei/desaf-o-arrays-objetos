@@ -20,4 +20,3 @@ menu()
 
 let texto = (` - Carrito de compras - `)
 document.write(texto)
-document.write(carrito)
