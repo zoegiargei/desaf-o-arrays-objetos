@@ -16,7 +16,33 @@ const batidoraMesaStock = new Producto("batidora de Mesa", 22399, 22);
 const lavavajillasStock = new Producto("lavavajillas", 129999, 25);
 const lavarropasStock = new Producto("lavarropas", 120999, 40);
 
+// Creé este array (productos) solo para aplicar el método .slice() , con el fín de aplicar la mayoría de los métodos vistos en clase
+const productos = []
+
+productos.push(heladeraStock)
+productos.push(freezerStock)
+productos.push(microondasStock)
+productos.push(hornoStock)
+productos.push(batidoraManualStock)
+productos.push(batidoraMesaStock)
+productos.push(lavavajillasStock)
+productos.push(lavarropasStock)
+
 menu()
 
-let texto = (` - Carrito de compras - `)
-document.write(texto)
+const carritoNombres = []
+const carritoPrecios = []
+
+for(const productos of carrito){
+    carritoNombres.push(productos.nombre)
+    carritoPrecios.push(productos.precio)
+}
+
+let texto = (` - Carrito de compras - \n`)
+document.write(`${texto}\n\n`)
+
+carritoNombres.join("-")
+carritoPrecios.join("-")
+
+document.write(`Productos comprados: ${carritoNombres}`)
+document.write(`Precios: ${carritoPrecios}`)
