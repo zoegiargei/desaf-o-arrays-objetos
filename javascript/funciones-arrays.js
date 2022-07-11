@@ -1,4 +1,4 @@
-let op, opcion, numProducto=0, productoAEliminar, montoTotal=0, formaPago=0, formaDePago
+let op, opcion, numProducto=0, productoAEliminar, montoTotal=0, formaPago=0, formaDePago, fecha
 
 const carrito = []
 
@@ -25,27 +25,6 @@ function eliminarProductoCarrito(productoAEliminar){
             break
         }
     }
-
-    // buscar producto con método .find()
-   /*
-    if(carrito.find(producto => producto.nombre == productoAEliminar)){
-        let existe = true
-    }
-
-    let existe = carrito.some(producto ==> producto.nombre == productoAEliminar)
-
-    if(existe){
-        
-        for (let i=0; i < carrito.length ; i++){
-        if (carrito[i].nombre == productoAEliminar){
-            alert(`Se eliminará el producto del carrito de compras.`)
-            carrito.splice(i, 1)
-            }
-        }
-    } else{
-        alert(`No se encontro el producto`)
-    }
-    */
 }
 
 
@@ -272,12 +251,11 @@ function menu(){
 
             if(carrito.length > 0){
 
+                // Mostramos productos que están en el carrito
                 alert(` - Productos que agregó al carrito - `)
 
-                for (let i=0; i < carrito.length ; i++){
-
-                    alert(`producto: ${carrito[i].nombre} precio: $${carrito[i].precio}`)
-                }
+                // Aplicación del método .forEach()
+                carrito.forEach(producto => {alert(`producto: ${producto.nombre} precio: $${producto.precio}`)})
 
             } else{alert(`No se agregaron productos al carrito`)}
 
@@ -288,38 +266,36 @@ function menu(){
 
             montoTotal=0
 
-            /* Otro método para calcular monto total de compra
-            for(let i=0; i < carrito.length ; i++){
-
-                montoTotal += carrito[i].precio
-            }
-            */
-
+            /*
             for (const producto of carrito){
+                
                 montoTotal += producto.precio
                 montoTotal.toFixed(2)
             }
+            */
+
+            montoTotal = carrito.reduce((acum, producto) => acum + producto.precio, 0)
 
         } else if(op == 5){
             mostrarSeccion()
         } else if(op==6){
 
-            console.log(` - Ticket - \n`)
+            console.log(` - Ticket - \n\n`)
+            fecha = new Date()
+            console.log(` - Fecha: ${fecha.toLocaleDateString()} - \n\n`)
 
             montoTotal=0
 
             // Cálculo del monto total
-            for (const producto of carrito){
-                montoTotal += producto.precio
-                montoTotal.toFixed(2)
-            }
+            montoTotal = carrito.reduce((acum, producto) => acum + producto.precio, 0)
+            montoTotal.toFixed(2)
 
             // llevando más de un producto se aplica 10% de descuento
             if (carrito.length >= 2){
                 montoTotal -= (montoTotal*0.1)
                 montoTotal.toFixed(2)
 
-                console.log(`Tiene 10% de descuento en el monto total de la compra por llevar más de 1 de nuestros productos!`)
+                console.log(`Tiene 10% de descuento en el monto total de la compra por llevar más de 1 de nuestros productos!\n\n`)
             }
 
             formaPago = parseInt(prompt(`
@@ -360,12 +336,6 @@ function menu(){
             }
 
             alert(`El monto total a pagar, con descuentos incluidos es: $ ${montoTotal}\n ¡Gracias por su compra!`)
-
-            /*
-            for (let i=0; i < carrito.length ; i++){
-                console.log(`${carrito[i].nombre} precio: $ ${carrito[i].precio}\n\n`)
-            }
-            */
 
             for (const producto of carrito){console.log(`${producto.nombre} precio: $ ${producto.precio}\n\n`)}
 
