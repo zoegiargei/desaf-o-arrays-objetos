@@ -286,6 +286,7 @@ function menu(){
             console.log(` - Fecha: ${fecha.toLocaleDateString()} - \n\n`)
             console.log(``)
             console.log(`Los productos se mostrarán en orden de menor a mayor según el precio...\n\n`)
+            console.log(``)
 
             montoTotal=0
 
@@ -293,69 +294,80 @@ function menu(){
             montoTotal = carrito.reduce((acum, producto) => acum + producto.precio, 0)
             montoTotal.toFixed(2)
 
-            // llevando más de un producto se aplica 10% de descuento
-            if (carrito.length >= 2){
-                montoTotal -= (montoTotal*0.1)
-                montoTotal.toFixed(2)
-
-                console.log(`Tiene 10% de descuento en el monto total de la compra por llevar más de 1 de nuestros productos!\n\n`)
-            }
-
+            
             formaPago = parseInt(prompt(`
             -FORMAS DE PAGO \n
             
             1. Efectivo -> 10% de descuento.
             2. Débito -> Mismo precio.
             3. Crédito -> 10% Recargo.
-        
+            
             Ingrese el número de la opción que eligió:
-
+            
             `))
-        
+            
             //Opciones de forma de pago
             switch(formaPago){
-        
+                
                 case 1:
-
+                    
                     formaDePago = "EFECTIVO"
                     alert(`El descuento por abonar en efectivo es $ ${(montoTotal.toFixed(2)*0.1)}`)
                     montoTotal -= (montoTotal*0.1)
                     montoTotal.toFixed(2)
                     
-                break
+                    break
+                    
+                    case 2:
+                        formaDePago = "DÉBITO"
+                        break
+                        
+                        case 3:
+                            
+                            formaDePago = "CRÉDITO"
+                            
+                            alert(`El recargo por abonar con crédito es $ ${(montoTotal.toFixed(2)*0.1)}`)
+                            montoTotal += (montoTotal*0.1)
+                            montoTotal.toFixed(2)
+                            break
+                        }
+                        
+                        alert(`El monto total a pagar, con descuentos incluidos es: $ ${montoTotal}\n - El ticket se mostrará por consola - ¡Gracias por su compra!`)
 
-                case 2:
-                    formaDePago = "DÉBITO"
-                break
-        
-                case 3:
+                        // Impresión del ticket por consola
+                        
+                        carrito.forEach((producto) => console.log(`\t\t${producto.nombre} precio: $ ${producto.precio}\n\n`))
+                        
+                        if(formaDePago == "EFECTIVO"){
+                            console.log(``)
+                            console.log(`Abona en efectivo. Tiene 10% de descuento\n\n`)
+                        } else if(formaDePago == "DÉBITO"){
+                            console.log(``)
+                            console.log(`Abona con DÉBITO. El precio final queda igual\n\n`)
+                        } else{
+                            console.log(``)
+                            console.log(`Abona con CRÉDITO. Tiene 10% de recargo\n\n`)
+                        }
+                        
+                        // llevando más de un producto se aplica 10% de descuento
+                        if (carrito.length >= 2){
+                            montoTotal -= (montoTotal*0.1)
+                            montoTotal.toFixed(2)
+                            
+                            console.log(``)
+                            console.log(`Tiene 10% de descuento en el monto total de la compra por llevar más de 1 de nuestros productos!\n\n`)
+                            console.log(``)
+                        }
 
-                formaDePago = "CRÉDITO"
-
-                    alert(`El recargo por abonar con crédito es $ ${(montoTotal.toFixed(2)*0.1)}`)
-                    montoTotal += (montoTotal*0.1)
-                    montoTotal.toFixed(2)
-                break
-            }
-
-            alert(`El monto total a pagar, con descuentos incluidos es: $ ${montoTotal}\n ¡Gracias por su compra!`)
-
-            for (const producto of carrito){console.log(`${producto.nombre} precio: $ ${producto.precio}\n\n`)}
-
-            if(formaDePago == "EFECTIVO"){
-                console.log(`Abona en efectivo. Tiene 10% de descuento\n\n`)
-            } else if(formaDePago == "DÉBITO"){
-                console.log(`Abona con DÉBITO. El precio final queda igual\n\n`)
-            } else{
-                console.log(`Abona con CRÉDITO. Tiene 10% de recargo\n\n`)
-            }
-
-            console.log(`El precio final a abonar es: $ ${montoTotal.toFixed(2)}\n`)
-            
-            op = 7 //Cortamos el ciclo while
-
-        } else if (op == 7){
-            alert(` -El ticket se mostrará por consola-\nHasta luego!`)
+                        console.log(``)
+                        console.log(`El precio final a abonar es: $ ${montoTotal.toFixed(2)}\n`)
+                        console.log(``)
+                        console.log(`Gracias por su compra. ¡Vuelva pronto!`)
+                        
+                        op = 7 //Cortamos el ciclo while
+                        
+                    } else if (op == 7){
+                        alert(` -El ticket se mostrará por consola-\nHasta luego!`)
         }
 
     }
