@@ -15,7 +15,7 @@ function eliminarProductoCarrito(productoAEliminar){
         }
     }
     */
-
+    /*
     for (const producto of carrito){
         if(producto.nombre == productoAEliminar){
             let indice = carrito.indexOf(productoAEliminar)
@@ -23,8 +23,17 @@ function eliminarProductoCarrito(productoAEliminar){
             carrito.splice(indice, 1)
             
             break
-        }
+        }   
     }
+    */
+
+    carrito.forEach((producto) => {
+        if(producto.nombre == productoAEliminar){
+            let indice = carrito.indexOf(productoAEliminar)
+            alert(`Se eliminará el producto del carrito de compras.`)
+            carrito.splice(indice, 1)
+        }
+    })
 }
 
 
@@ -60,6 +69,14 @@ function mostrarCatalogo(){
 }
 
 
+/*
+// Función para crear objetos y agregar al array carrito
+function crearProductos(nombre, precio){
+    const nuevoProducto = new ProductoComprado(nombre,precio)
+    carrito.push(nuevoProducto)
+}
+*/
+
 
 // Función para realizar compra + agregar producto al array Carrito[] con método .push()
 function comprarProducto(numProducto){
@@ -68,12 +85,16 @@ function comprarProducto(numProducto){
 
         case 1:
 
+            /*
+            crearProductos("heladera", heladeraStock.precio)
+            */
+
             const heladera = new ProductoComprado("heladera", heladeraStock.precio)
+            carrito.push(heladera)
+            
             heladera.ofertaPrecio(0.05)
 
             heladeraStock.disminuirStock(1)
-
-            carrito.push(heladera)
 
             alert(`Este producto tiene 5% de descuento`)
 
@@ -174,34 +195,19 @@ function validarNumero(mensaje,min,max){
 }
 
 
-// Creé esta función solo para aplicar la mayoría de los métodos vistos en clase, en este caso el método .slice()
+
+// Función que busca por secciones con filter() e includes()
 function mostrarSeccion(){
 
     let seccion = prompt(`Secciones: refrigeración - cocción - batidoras - lavado`).toLowerCase()
 
-    if (seccion == "refrigeracion" || seccion == "refrigeración"){
-        const refrigeracion = productos.slice(0,2)
-        for(const producto of refrigeracion){
-            alert(producto.nombre)
-        }
-    } else if(seccion == "coccion" || seccion == "cocción"){
-        const coccion = productos.slice(2,4)
-        for(const producto of coccion){
-            alert(producto.nombre)
-        }
-    } else if(seccion == "batidoras"){
-        const batidoras = productos.slice(4,6)
-        for(const producto of batidoras){
-            alert(producto.nombre)
-        }
-    } else if(seccion == "lavado"){
-        const lavado = productos.slice(6,8)
-        for(const producto of lavado){
-            alert(producto.nombre)
-        }
-    } else{
-        "Ingresó una sección que no existe"
+    while(seccion != "refrigeracion" && seccion != "coccion" && seccion != "batidoras" && seccion != "lavado"){
+        alert(`DATO NO VÁLIDO. Ingresó una sección que NO existe ó ingresó la sección con acentos. Intente de nuevo (sin acentos por favor)`)
+        seccion = prompt(`Secciones: refrigeración - cocción - batidoras - lavado`).toLowerCase()
     }
+
+    const resultado = productos.filter((producto) => producto.tipo.includes(seccion))
+    resultado.forEach((producto) => alert(`producto: ${producto.nombre} precio: $${producto.precio}`))
 }
 
 
@@ -266,23 +272,20 @@ function menu(){
 
             montoTotal=0
 
-            /*
-            for (const producto of carrito){
-                
-                montoTotal += producto.precio
-                montoTotal.toFixed(2)
-            }
-            */
-
             montoTotal = carrito.reduce((acum, producto) => acum + producto.precio, 0)
 
         } else if(op == 5){
             mostrarSeccion()
         } else if(op==6){
 
+            //Método sort() para ordenar carrito de menor a mayor según el precio
+            carrito.sort((a,b) => a.precio - b.precio)
+
             console.log(` - Ticket - \n\n`)
             fecha = new Date()
             console.log(` - Fecha: ${fecha.toLocaleDateString()} - \n\n`)
+            console.log(``)
+            console.log(`Los productos se mostrarán en orden de menor a mayor según el precio...\n\n`)
 
             montoTotal=0
 
@@ -349,7 +352,6 @@ function menu(){
 
             console.log(`El precio final a abonar es: $ ${montoTotal.toFixed(2)}\n`)
             
-
             op = 7 //Cortamos el ciclo while
 
         } else if (op == 7){

@@ -1,9 +1,10 @@
 class Producto{
-    constructor(nombre, precio, stock){
+    constructor(nombre, precio, stock, tipo){
         this.nombre = nombre;
         this.marca = "whirlpool";
         this.precio = precio;
         this.stock = stock;
+        this.tipo = tipo;
     }
 
     /*Métodos*/
